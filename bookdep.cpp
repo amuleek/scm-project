@@ -317,3 +317,175 @@ cout<<"\t\t"<<u.sbj[i][6]<<"\n";
 }
 cout<<" 6. "<<"Total\t\t"<<u.totp<<"\t\t"<<u.totr;show2();getch();
 }
+
+
+//open account
+int openacc()
+{
+user u,bklst;userlist list;
+char name[50],passw[20],reply;ofstream fo;
+page1:clrscr();
+cout<<"\n Enter your account name:\n ";cin.getline(name,49);
+uppercase(name);ifstream fi(name);
+if(!fi.good())
+{ pagename:
+clrscr();cout<<"\n\n Wrong account name!\n Enter again?(y/n)\n ";
+reply=getch();
+if(reply=='y'||reply=='Y'){ goto page1;}
+else if(reply=='n'||reply=='N'){ return 0;}
+else{ goto pagename;}
+}
+fi.read((char *) &u,sizeof(u));fi.close();
+fi.open("USERLIST");fi.read((char *) &list,sizeof(list));fi.close();
+int flag=0;
+for(int s=0;s<list.no;s++)
+{
+if(!strcmp(name,list.users[s])){ flag=1;break;}
+}
+if(flag==0)
+{ strcpy(list.users[list.no],name);list.no++;
+fo.open("USERLIST");
+fo.write((char *) &list,sizeof(list));fo.close();
+}
+if(!strcmp(u.password,"########")){ goto page3;}
+page2: clrscr();cout<<"\n Enter your password:\n ";
+cin.getline(passw,19);
+if(strcmp(u.password,passw))
+{ pagepass:
+clrscr();cout<<"\n\n Wrong password!\n Enter again?(y/n)\n ";
+reply=getch();
+if(reply=='y'||reply=='Y'){ goto page2;}
+else if(reply=='n'||reply=='N'){ return 0;}
+else{ goto pagepass;}
+}
+
+page32:  clrscr();
+if(ch==i)
+{
+cout<<"\n\n\n\t\t"<<sb.s[x]<<"\n\n\n\n";
+for(j=0;j<5;j++)
+{
+cout<<" \'"<<j+1<<"\' "<<sb.sub[x][j]<<"\t";
+cout<<bklst.sbj[x][j]<<" remaining\n";
+}
+cout<<" 'B' Back";show();ch1=getch();
+for(k='1',y=0;k<='5';k++,y++)
+{
+if(ch1==k)
+{
+page33:  clrscr();
+cout<<"\n\t\t\t\t"<<sb.sub[x][y];
+u.showpb();cout<<"\n 'R' Return";show();ch2=getch();
+if(ch2=='P'||ch2=='p')
+{
+if(bklst.sbj[x][y]>0)
+{
+u.totp++;bklst.totp++;u.sbj[x][5]++;bklst.sbj[x][5]++;
+u.sbj[x][y]++;bklst.sbj[x][y]--;fo.open("BOOKLIST");
+fo.write((char *) &bklst,sizeof(bklst));fo.close();
+fo.open(name);fo.write((char *) &u,sizeof(u));fo.close();
+clrscr();cout<<"\n\n\tOK! You have purchased this book";
+}
+else
+{
+clrscr();
+cout<<"\n\n\tYou can't purchase this book.\n\tMake ";
+cout<<"sure that no. of copies of this book\n\tin ";
+cout<<"this shop is greater than zero.";
+}
+show2();getch();
+goto page32;
+}
+else if(ch2=='r'||ch2=='R')
+{
+if(u.sbj[x][y]>0)
+{
+u.totr++;bklst.totr++;u.sbj[x][6]++;bklst.sbj[x][6]++;
+u.sbj[x][y]--;bklst.sbj[x][y]++;fo.open("BOOKLIST");
+fo.write((char *) &bklst,sizeof(bklst));fo.close();
+fo.open(name);fo.write((char *) &u,sizeof(u));fo.close();
+clrscr();cout<<"\n\n\tOK! You have returned this book";
+}
+else
+{
+clrscr();
+cout<<"\n\n\tYou can't return this book.\n\tMake ";
+cout<<"sure that no. of copies of this book\n\tyou";
+cout<<" are having is greater than zero.";
+}
+show2();getch();
+goto page32;
+}
+else if(ch2=='B'||ch2=='b'){ goto page32;}
+else{ goto page33;}
+}
+}
+if(ch1=='B'||ch1=='b'){ goto page31;}
+else{ goto page32;}
+}
+}
+if(ch=='B'||ch=='b'){ goto page3;}
+else{ goto page31;}
+}
+else if(reply=='2')
+{
+clrscr();
+int i,j;
+for(i=0;i<5;i++)
+{ subject sb;
+cout<<"\n "<<sb.s[i]<<"\n";
+for(j=0;j<5;j++)
+{
+cout<<"  "<<j+1<<". "<<sb.sub[i][j]<<"\t"<<u.sbj[i][j];
+cout<<" remaining\n";
+}
+
+}
+show2();getch();goto page3;
+}
+else if(reply=='3')
+{ pur_ret(name);
+goto page3;
+}
+else if(reply=='4')
+{ clrscr();cout<<"\n Enter new password(max 19 characters):\n ";
+cin.getline(passw,19);strcpy(u.password,passw);clrscr();
+cout<<"\n\tPassword modified succesfully!";show2();getch();
+fo.open(name);fo.write((char *) &u,sizeof(u));fo.close();
+goto page3;
+}
+else if(reply=='5')
+{ page35:  clrscr();cout<<"\n Remove password?(y/n):";reply=getch();
+if(reply=='Y'||reply=='y')
+{ strcpy(u.password,"########");fo.open(name);
+fo.write((char *) &u,sizeof(u));fo.close();clrscr();
+cout<<"\n\tPassword removed successfully!";
+show2();getch();goto page3;
+}
+else if(reply=='N'||reply=='n'){ goto page3;}
+else{ goto page35;}
+}
+else if(reply=='6')
+{ page36:  clrscr();
+cout<<"\n Do you want to delete your account?(y/n):";reply=getch();
+if(reply=='Y'||reply=='y')
+{ clrscr();remove(name);
+cout<<"\n\tYour account is deleted successfully!";show2();getch();
+namecutter(name);
+return 0;
+}
+else if(reply=='N'||reply=='n'){ goto page3;}
+else{goto page36;}
+}
+else if(reply=='b'||reply=='B')
+{ page3b:  clrscr();
+cout<<"\n Do you want to exit from your account?(y/n):";
+reply=getch();
+if(reply=='Y'||reply=='y'){ return 0;}
+else if(reply=='N'||reply=='n'){ goto page3;}
+else{ goto page3b;}
+}
+else{ goto page3;}
+}
+
+}
