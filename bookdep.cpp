@@ -64,3 +64,14 @@ void showpb()
 cout<<"\n\n\n\n\n\n 'P' Purchase\n 'B' Back";
 }
 };
+
+void uppercase(char *);
+void pur_ret(char name[]);
+void notification(user &amp;);
+void setdefault(user &amp;);
+void chkusrlst();
+void chkbooklst();
+void showuserlist();
+int crtusr();
+
+void namecutter(char name[]);
