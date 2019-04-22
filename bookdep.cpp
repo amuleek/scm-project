@@ -195,3 +195,29 @@ fo.close();
 }
 usrlst.close();
 }
+
+void chkbooklst()
+{
+ifstream booklst;int i,j;
+booklst.open("booklist");
+if(!booklst.good())chk
+{
+ofstream fo("booklist");
+user bklst;
+for(i=0;i<5;i++)
+{
+for(j=0;j<5;j++)
+{
+bklst.sbj[i][j]=1000;
+}
+}
+for(i=0;i<5;i++)
+{
+bklst.sbj[i][5]=0;bklst.sbj[i][6]=0;
+}
+bklst.totp=0;bklst.totr=0;
+fo.write((char *)&bklst,sizeof(bklst));
+fo.close();
+}
+booklst.close();
+}
