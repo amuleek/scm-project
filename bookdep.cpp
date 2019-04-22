@@ -45,3 +45,22 @@ strcpy(s[4],"Computer Science");
 
 }
 };
+
+void show();
+void show2();
+class userlist
+{
+public:
+int no;
+char users[100][50];
+};
+class user
+{
+public:
+int sbj[5][7],totp,totr;
+
+void showpb()
+{
+cout<<"\n\n\n\n\n\n 'P' Purchase\n 'B' Back";
+}
+};
