@@ -73,5 +73,6 @@ void chkusrlst();
 void chkbooklst();
 void showuserlist();
 int crtusr();
-
+int showbooks();
+int openacc();
 void namecutter(char name[]);
