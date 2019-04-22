@@ -58,7 +58,7 @@ class user
 {
 public:
 int sbj[5][7],totp,totr;
-
+char password[20];
 void showpb()
 {
 cout<<"\n\n\n\n\n\n 'P' Purchase\n 'B' Back";
