@@ -295,3 +295,25 @@ cout<<"\tNow press any key to exit";
 getch();
 exit(0);
 }
+
+void show()
+{
+cout<<"\n\n\n\n\n\tPress any of the keys given above!";
+}
+void show2()
+{
+cout<<"\n\n\n\n\n\tPress any key to back!";
+}
+void pur_ret(char name[])
+{
+clrscr();
+user u;subject s;ifstream fi(name);int i;
+fi.read((char *) &u,sizeof(u));fi.close();
+cout<<"\n\n\n\n Subject\t\tPurchased\tReturned\n\n\n";
+for(i=0;i<5;i++)
+{
+cout<<" "<<i+1<<"."<<" "<<s.s[i]<<"\t"<<u.sbj[i][5];
+cout<<"\t\t"<<u.sbj[i][6]<<"\n";
+}
+cout<<" 6. "<<"Total\t\t"<<u.totp<<"\t\t"<<u.totr;show2();getch();
+}
