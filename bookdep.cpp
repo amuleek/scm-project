@@ -111,3 +111,60 @@ default : goto mpage;
 getch();
 return 0;
 }
+
+int crtusr()
+{
+clrscr();
+char name[50],reply;
+ifstream fi;
+user u;userlist list;
+fi.open("USERLIST");fi.read((char *) &list,sizeof(list));fi.close();
+if(list.no==99)
+{ clrscr();cout<<"\n\tYou can't create any account.\n\t";
+cout<<"Since the accoutn list is full,\n\tso you have to";
+cout<<" delete an account";show2();getch();return 0;
+}
+cout<<"\n Enter your name(max 49 characters):\n ";
+page2:
+cin.getline(name,49);uppercase(name);
+if(name[0]=='\0'||name[0]==' ')
+{
+clrscr();
+cout<<"\n Please enter a valid name:";goto page2;
+}
+for(int i=0;name[i]!='\0';i++)
+{
+if(name[i]=='\\'||name[i]=='/'||name[i]==':'||name[i]=='*'||name[i]=='?'||name[i]=='\"'||name[i]=='<'||name[i]=='>'||name[i]=='|')
+{ clrscr();
+cout<<"\n Please enter a valid name:";goto page2;
+}
+}
+fi.open(name);
+if(fi.good())
+{
+clrscr();
+cout<<"\n The name you have entered is already present!";
+cout<<"\n Please enter another:\n ";goto page2;
+}
+fi.close();
+page:  clrscr();
+cout<<"\n Do you want to add a password? (y/n):";reply=getch();
+if(reply=='Y'||reply=='y')
+{ clrscr();
+cout<<"\n Enter your password(max 19 characters):\n ";
+cin.getline(u.password,19);
+}
+else if(reply=='N'||reply=='n')
+{ strcpy(u.password,"########");
+}
+else{ goto page;}
+setdefault(u);
+ofstream fo(name);
+fo.write((char *) &u,sizeof(u));fo.close();
+strcpy(list.users[list.no],name);list.no++;
+fo.open("USERLIST");fo.write((char *) &list,sizeof(list));fo.close();
+clrscr();cout<<"\n\n\tCongratulations! ";
+cout<<"You have created your account of name:\n\t'"<<name<<"'";
+show2();getch();
+return 0;
+}
