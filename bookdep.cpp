@@ -258,7 +258,7 @@ if(ch2=='P'||ch2=='p')
 {
 if(guest.sbj[x][y]>0)
 { guest.totp++;guest.sbj[x][5]++;guest.sbj[x][y]--;
-notification(gest);
+notification(guest);
 }
 else
 {
@@ -274,7 +274,7 @@ else{ goto page3;}
 break;
 }
 }
-if(ch1=='B'||ch1=='c'){ goto page1;}
+if(ch1=='B'||ch1=='b'){ goto page1;}
 else{ goto page2;}
 }
 }
@@ -294,4 +294,26 @@ cout<<" purchased from this shop.\n\n\n\n\n";
 cout<<"\tNow press any key to exit";
 getch();
 exit(0);
+}
+
+void show()
+{
+cout<<"\n\n\n\n\n\tPress any of the keys given above!";
+}
+void show2()
+{
+cout<<"\n\n\n\n\n\tPress any key to back!";
+}
+void pur_ret(char name[])
+{
+clrscr();
+user u;subject s;ifstream fi(name);int i;
+fi.read((char *) &u,sizeof(u));fi.close();
+cout<<"\n\n\n\n Subject\t\tPurchased\tReturned\n\n\n";
+for(i=0;i<5;i++)
+{
+cout<<" "<<i+1<<"."<<" "<<s.s[i]<<"\t"<<u.sbj[i][5];
+cout<<"\t\t"<<u.sbj[i][6]<<"\n";
+}
+cout<<" 6. "<<"Total\t\t"<<u.totp<<"\t\t"<<u.totr;show2();getch();
 }
