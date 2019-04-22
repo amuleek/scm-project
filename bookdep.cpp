@@ -358,7 +358,26 @@ if(reply=='y'||reply=='Y'){ goto page2;}
 else if(reply=='n'||reply=='N'){ return 0;}
 else{ goto pagepass;}
 }
-
+page3: clrscr();fi.open("BOOKLIST");
+fi.read((char *) &bklst,sizeof(bklst));fi.close();
+cout<<"\n\n\n\tWelcome "<<name;
+cout<<"\n\n\n\n '1' Purchase/return books\n '2' No. of books";
+cout<<" you are having\n '3' No. of books purchased/retutned ";
+cout<<"by you\n '4' Add/modify password\n '5' Remove password\n ";
+cout<<"'6' Delete your account\n 'B' Back";show();reply=getch();
+if(reply=='1')
+{
+subject sb;char i,k,ch,ch1,ch2;int x,y,j;
+page31:  clrscr();
+cout<<"\n\n\n\n\n\n\n";
+for(x=0;x<5;x++)
+{
+cout<<" '"<<x+1<<"' "<<sb.s[x]<<"\n";
+}
+cout<<" 'B' Back";
+show();ch=getch();
+for(i='1',x=0;i<='5';i++,x++)
+{
 page32:  clrscr();
 if(ch==i)
 {
@@ -487,5 +506,10 @@ else{ goto page3b;}
 }
 else{ goto page3;}
 }
-
+	void uppercase(char *a)
+{
+for(int i=0;a[i]!='\0';i++)
+{
+a[i]=toupper(a[i]);
+}
 }
