@@ -211,7 +211,7 @@ for(j=0;j<5;j++)
 bklst.sbj[i][j]=1000;
 }
 }
-for(i=0;i<5;i++)
+for(i=0;i<5;i++)  
 {
 bklst.sbj[i][5]=0;bklst.sbj[i][6]=0;
 }
@@ -220,4 +220,100 @@ fo.write((char *)&bklst,sizeof(bklst));
 fo.close();
 }
 booklst.close();
+}
+
+int showbooks()
+{
+user guest;subject sb;char i,k,ch,ch1,ch2;int x,y,j;
+page1:  clrscr();
+ifstream fi("Booklist");
+fi.read((char *) &guest,sizeof(guest));
+fi.close();cout<<"\n\n\n\n\n\n\n";
+for(x=0;x<5;x++)
+{
+cout<<" '"<<x+1<<"' "<<sb.s[x]<<"\n";
+}
+cout<<" 'B' Back";
+show();ch=getch();
+for(i='1',x=0;i<='5';i++,x++)
+{
+page2:  clrscr();
+if(ch==i)
+{
+cout<<"\n\n\n\t\t"<<sb.s[x]<<"\n\n\n\n";
+for(j=0;j<5;j++)
+{
+cout<<" \'"<<j+1<<"\' "<<sb.sub[x][j]<<"\t";
+cout<<guest.sbj[x][j]<<" remaining\n";
+}
+cout<<" 'B' Back";show();ch1=getch();
+for(k='1',y=0;k<='5';k++,y++)
+{
+if(ch1==k)
+{
+page3:  clrscr();
+cout<<"\n\t\t\t\t"<<sb.sub[x][y];
+guest.showpb();show();ch2=getch();
+if(ch2=='P'||ch2=='p')
+{
+if(guest.sbj[x][y]>0)
+{ guest.totp++;guest.sbj[x][5]++;guest.sbj[x][y]--;
+notification(guest);
+}
+else
+{
+clrscr();
+cout<<"\n\n\tYou can't purchase this book.\n\tMake ";
+cout<<"sure that no. of copies of this book\n\tin ";
+cout<<"this shop is greater than zero.";
+show2();getch();goto page2;
+}
+}
+else if(ch2=='B'||ch2=='b'){ goto page2;}
+else{ goto page3;}
+break;
+}
+}
+if(ch1=='B'||ch1=='b'){ goto page1;}
+else{ goto page2;}
+}
+}
+if(ch=='B'||ch=='b'){ return 1;}
+else{ goto page1;}
+}
+void notification(user &u)
+{
+clrscr();
+ofstream f("BOOKLIST");
+f.write((char *) &u,sizeof(u));
+f.close();
+cout<<"\n\n\n\n\n\n\n\tThank you for your purchasing this book. ";
+cout<<"Next time you must create\n\tan account so that you can ";
+cout<<"purchase more than one book and also can\n\treturn books";
+cout<<" purchased from this shop.\n\n\n\n\n";
+cout<<"\tNow press any key to exit";
+getch();
+exit(0);
+}
+
+void show()
+{
+cout<<"\n\n\n\n\n\tPress any of the keys given above!";
+}
+void show2()
+{
+cout<<"\n\n\n\n\n\tPress any key to back!";
+}
+void pur_ret(char name[])
+{
+clrscr();
+user u;subject s;ifstream fi(name);int i;
+fi.read((char *) &u,sizeof(u));fi.close();
+cout<<"\n\n\n\n Subject\t\tPurchased\tReturned\n\n\n";
+for(i=0;i<5;i++)
+{
+cout<<" "<<i+1<<"."<<" "<<s.s[i]<<"\t"<<u.sbj[i][5];
+cout<<"\t\t"<<u.sbj[i][6]<<"\n";
+}
+cout<<" 6. "<<"Total\t\t"<<u.totp<<"\t\t"<<u.totr;show2();getch();
 }
