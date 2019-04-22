@@ -258,7 +258,7 @@ if(ch2=='P'||ch2=='p')
 {
 if(guest.sbj[x][y]>0)
 { guest.totp++;guest.sbj[x][5]++;guest.sbj[x][y]--;
-notification(gest);
+notification(guest);
 }
 else
 {
@@ -274,7 +274,7 @@ else{ goto page3;}
 break;
 }
 }
-if(ch1=='B'||ch1=='c'){ goto page1;}
+if(ch1=='B'||ch1=='b'){ goto page1;}
 else{ goto page2;}
 }
 }
