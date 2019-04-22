@@ -76,3 +76,38 @@ int crtusr();
 int showbooks();
 int openacc();
 void namecutter(char name[]);
+
+int main()
+{
+textbackground(3);
+textcolor(0);
+chkusrlst();
+chkbooklst();
+mpage:
+clrscr();
+char ch;
+cout<<"\n\n\t\t\tWelcome To ASHISH BOOKSHOP\n\n\n\n\n '1' See the ";
+cout<<"lists of books\n '2' Create an account\n '3' Open an account";
+cout<<"\n '4' See about no. of books purchased/returned\n";
+cout<<" '5' See the list of accounts\n '6' Quit";show();
+ch=getch();
+switch(ch)
+{
+case '1': if(showbooks()==1)
+{  goto mpage;
+}
+break;
+case '2': crtusr();
+goto mpage;
+case '3': openacc();
+goto mpage;
+case '4': pur_ret("BOOKLIST");
+goto mpage;
+case '5': showuserlist();
+goto mpage;
+case '6': return 0;
+default : goto mpage;
+}
+getch();
+return 0;
+}
