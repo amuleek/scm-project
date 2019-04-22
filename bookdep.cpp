@@ -168,3 +168,30 @@ cout<<"You have created your account of name:\n\t'"<<name<<"'";
 show2();getch();
 return 0;
 }
+
+void setdefault(user &usr)
+{
+int i,j;
+for(i=0;i<5;i++)
+{
+for(j=0;j<7;j++)set default
+{
+usr.sbj[i][j]=0;
+}
+}
+usr.totp=0;usr.totr=0;
+}
+void chkusrlst()
+{
+ifstream usrlst;
+usrlst.open("userlist");
+if(!usrlst.good())
+{
+ofstream fo("userlist");
+userlist list;
+list.no=0;
+fo.write((char *) &list,sizeof(list));
+fo.close();
+}
+usrlst.close();
+}
