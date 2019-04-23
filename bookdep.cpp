@@ -393,98 +393,18 @@ for(k='1',y=0;k<='5';k++,y++)
 if(ch1==k)
 {
 page33:  clrscr();
-cout<<"\n\t\t\t\t"<<sb.sub[x][y];
-u.showpb();cout<<"\n 'R' Return";show();ch2=getch();
-if(ch2=='P'||ch2=='p')
-{
-if(bklst.sbj[x][y]>0)
-{
-u.totp++;bklst.totp++;u.sbj[x][5]++;bklst.sbj[x][5]++;
-u.sbj[x][y]++;bklst.sbj[x][y]--;fo.open("BOOKLIST");
-fo.write((char *) &bklst,sizeof(bklst));fo.close();
-fo.open(name);fo.write((char *) &u,sizeof(u));fo.close();
-clrscr();cout<<"\n\n\tOK! You have purchased this book";
-}
-else
-{
-clrscr();
-cout<<"\n\n\tYou can't purchase this book.\n\tMake ";
-cout<<"sure that no. of copies of this book\n\tin ";
-cout<<"this shop is greater than zero.";
-}
-show2();getch();
-goto page32;
-}
-else if(ch2=='r'||ch2=='R')
-{
-if(u.sbj[x][y]>0)
-{
-u.totr++;bklst.totr++;u.sbj[x][6]++;bklst.sbj[x][6]++;
-u.sbj[x][y]--;bklst.sbj[x][y]++;fo.open("BOOKLIST");
-fo.write((char *) &bklst,sizeof(bklst));fo.close();
-fo.open(name);fo.write((char *) &u,sizeof(u));fo.close();
-clrscr();cout<<"\n\n\tOK! You have returned this book";
-}
-else
-{
-clrscr();
-cout<<"\n\n\tYou can't return this book.\n\tMake ";
-cout<<"sure that no. of copies of this book\n\tyou";
-cout<<" are having is greater than zero.";
-}
-show2();getch();
-goto page32;
-}
-else if(ch2=='B'||ch2=='b'){ goto page32;}
-else{ goto page33;}
-}
-}
-if(ch1=='B'||ch1=='b'){ goto page31;}
-else{ goto page32;}
-}
-}
-if(ch=='B'||ch=='b'){ goto page3;}
-else{ goto page31;}
-}
-else if(reply=='2')
-{
-clrscr();
-int i,j;
-for(i=0;i<5;i++)
-{ subject sb;
-cout<<"\n "<<sb.s[i]<<"\n";
+cout<<"\n\n\n\t\t"<<sb.s[x]<<"\n\n\n\n";
 for(j=0;j<5;j++)
 {
-cout<<"  "<<j+1<<". "<<sb.sub[i][j]<<"\t"<<u.sbj[i][j];
-cout<<" remaining\n";
+cout<<" \'"<<j+1<<"\' "<<sb.sub[x][j]<<"\t";
+cout<<bklst.sbj[x][j]<<" remaining\n";
 }
-
-}
-show2();getch();goto page3;
-}
-else if(reply=='3')
-{ pur_ret(name);
-goto page3;
-}
-else if(reply=='4')
-{ clrscr();cout<<"\n Enter new password(max 19 characters):\n ";
-cin.getline(passw,19);strcpy(u.password,passw);clrscr();
-cout<<"\n\tPassword modified succesfully!";show2();getch();
-fo.open(name);fo.write((char *) &u,sizeof(u));fo.close();
-goto page3;
-}
-else if(reply=='5')
-{ page35:  clrscr();cout<<"\n Remove password?(y/n):";reply=getch();
-if(reply=='Y'||reply=='y')
-{ strcpy(u.password,"########");fo.open(name);
-fo.write((char *) &u,sizeof(u));fo.close();clrscr();
-cout<<"\n\tPassword removed successfully!";
-show2();getch();goto page3;
-}
-else if(reply=='N'||reply=='n'){ goto page3;}
-else{ goto page35;}
-}
-else if(reply=='6')
+cout<<" 'B' Back";show();ch1=getch();
+for(k='1',y=0;k<='5';k++,y++)
+{
+if(ch1==k)
+{
+)
 { page36:  clrscr();
 cout<<"\n Do you want to delete your account?(y/n):";reply=getch();
 if(reply=='Y'||reply=='y')
@@ -506,37 +426,10 @@ else{ goto page3b;}
 }
 else{ goto page3;}
 }
-	void uppercase(char *a)
+        void uppercase(char *a)
 {
 for(int i=0;a[i]!='\0';i++)
 {
-a[i]=toupper(a[i]);
-}
-}
+a[i]=toupp
 
-void showuserlist()
-{
-clrscr();int i;userlist list;ifstream fi("USERLIST");
-fi.read((char *) &list,sizeof(list));fi.close();
-for(i=0;i<list.no;i++)
-{
-cout<<"\n "<<i+1<<". "<<list.users[i];
-}
-show2();getch();
-}
-void namecutter(char name[])
-{
-userlist u;char temp[50];int i;
-ifstream fi("USERLIST");fi.read((char *) &u,sizeof(u));fi.close();
-for(i=0;i<u.no-1;i++)
-{
-if(strcmp(u.users[i],name)==0)
-{
-strcpy(temp,u.users[i]);
-strcpy(u.users[i],u.users[i+1]);
-strcpy(u.users[i+1],temp);
-}
-}
-u.no--;ofstream fo("USERLIST");
-fo.write((char *) &u,sizeof(u));fo.close();
-}
+
