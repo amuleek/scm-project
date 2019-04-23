@@ -513,3 +513,30 @@ for(int i=0;a[i]!='\0';i++)
 a[i]=toupper(a[i]);
 }
 }
+
+void showuserlist()
+{
+clrscr();int i;userlist list;ifstream fi("USERLIST");
+fi.read((char *) &list,sizeof(list));fi.close();
+for(i=0;i<list.no;i++)
+{
+cout<<"\n "<<i+1<<". "<<list.users[i];
+}
+show2();getch();
+}
+void namecutter(char name[])
+{
+userlist u;char temp[50];int i;
+ifstream fi("USERLIST");fi.read((char *) &u,sizeof(u));fi.close();
+for(i=0;i<u.no-1;i++)
+{
+if(strcmp(u.users[i],name)==0)
+{
+strcpy(temp,u.users[i]);
+strcpy(u.users[i],u.users[i+1]);
+strcpy(u.users[i+1],temp);
+}
+}
+u.no--;ofstream fo("USERLIST");
+fo.write((char *) &u,sizeof(u));fo.close();
+}
